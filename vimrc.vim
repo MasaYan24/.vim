@@ -1,1 +1,1 @@
-runtime! init/*.vim
+runtime! $HOME/.vim/init/*.vim
