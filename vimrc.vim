@@ -1,1 +1,2 @@
-runtime! $HOME/.vim/init/*.vim
+set runtimepath+=$HOME/.vim
+runtime! init/*.vim
