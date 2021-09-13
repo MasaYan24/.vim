@@ -1,3 +1,5 @@
+let &colorcolumn=join(range(80,999),",")
+
 set incsearch
 set shiftwidth=4
 set hlsearch  " hilight search
