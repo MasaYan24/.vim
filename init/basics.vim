@@ -6,6 +6,7 @@ set shiftwidth=4
 set hlsearch  " hilight search
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set cursorline  " hilight curosr line
+hi cursorline cterm=None ctermbg=255
 
 if has("syntax")
   syntax on
