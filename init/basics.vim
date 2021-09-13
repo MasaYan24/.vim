@@ -1,3 +1,8 @@
+set incsearch
+set shiftwidth=4
+set hlsearch
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
 if has("syntax")
   syntax on
 
