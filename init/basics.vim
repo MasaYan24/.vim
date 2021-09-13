@@ -1,4 +1,5 @@
 let &colorcolumn=join(range(80,999),",")
+hi ColorColumn ctermbg=225 guibg=#2c2d27
 
 set incsearch
 set shiftwidth=4
