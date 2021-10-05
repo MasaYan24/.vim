@@ -25,3 +25,9 @@ if has("syntax")
     autocmd BufNew,BufRead * call ActivateInvisibleIndicator()
   augroup END
 endif
+
+" keep cursor position
+augroup vimrcEx
+  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+  \ exe "normal g`\"" | endif
+augroup END
