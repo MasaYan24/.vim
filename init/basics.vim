@@ -1,3 +1,5 @@
+let &colorcolumn=join(range(80,999),",")
+
 if has("syntax")
   syntax on
 
@@ -15,3 +17,8 @@ if has("syntax")
     autocmd BufNew,BufRead * call ActivateInvisibleIndicator()
   augroup END
 endif
+
+augroup vimrcEx
+  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+  \ exe "normal g`\"" | endif
+augroup END

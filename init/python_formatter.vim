@@ -26,7 +26,8 @@ function! Isort()
 endfunction
 
 function! Black()
-  call Preserve(':silent %!black --quiet --config $HOME/.pyproject.toml -')
+  call Preserve(':silent %!black --quiet -')
+  " call Preserve(':silent %!black --quiet --config $HOME/.pyproject.toml -')
 endfunction
 
 function! BlackIsort()
