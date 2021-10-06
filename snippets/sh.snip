@@ -1,0 +1,46 @@
+snippet init
+        #!/bin/bash
+
+        # parameters
+
+        # usage
+        function usage_exit() {
+        cat << EOF
+        ${1:description}
+
+        Usage: command [option] param ...
+          param:  --basedir <dir>: set base dir
+          option:
+        EOF
+        exit 1
+        }
+        set -e
+
+        OPT=$(getopt \
+              -o h \
+              -l basedir:,help \
+              -- "$@")
+        [ $? != 0 ] && usage_exit
+
+        eval set -- "$OPT"
+        while true; do
+          case "\$1" in
+            --basedir) basedir="\$2"; shift;;
+            -h|--help) usage_exit;;
+            --) shift; break;;
+          esac
+          shift
+        done
+        shift $(( OPTIND -1 ))
+
+        # error handling
+        if [[ $# > 0 ]]; then
+          echo "Error: too many arguments."
+          usage_exit
+        fi
+
+        if [[ ! -d "${basedir}" ]]; then
+          echo "DirectoryNotFoundError: specify the path of base directory. ex) \$(pwd)"
+          usage_exit
+        fi
+
