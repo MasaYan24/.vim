@@ -2,11 +2,12 @@ let &colorcolumn=join(range(80,999),",")
 hi ColorColumn ctermbg=225 guibg=#2c2d27
 
 set incsearch
-set shiftwidth=4
 set hlsearch  " hilight search
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set cursorline  " hilight curosr line
 hi cursorline cterm=None ctermbg=255
+
+set list listchars=tab:»-,nbsp:%
 
 if has("syntax")
   syntax on
@@ -31,3 +32,6 @@ augroup vimrcEx
   au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
   \ exe "normal g`\"" | endif
 augroup END
+
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
+autocmd Filetype neosnippet set noexpandtab nosmarttab tabstop=4

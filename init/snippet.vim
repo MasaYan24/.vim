@@ -1,4 +1,3 @@
-"neosnnippet settings---------------------
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap". It uses <Plug> mappings.
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -19,6 +18,10 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
 "set snippet file dir
 let g:neosnippet#snippets_directory='~/.vim/snippets'
-"End neosnnippet settings-----------------

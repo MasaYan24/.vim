@@ -1,104 +1,104 @@
 snippet init
-        import argparse
-        import logging
-        from pathlib import Path
-        from typing import List
+	import argparse
+	import logging
+	from pathlib import Path
+	from typing import List
 
-        import cv2
-        import matplotlib.pyplot as plt
-        import numpy as np
+	import cv2
+	import matplotlib.pyplot as plt
+	import numpy as np
 
-        def _retrieve_args():
-                parser = argparse.ArgumentParser(description="${1:description}")
-                parser.add_argument("--input", "-i", type=Path, required=True, help="helpmessage")
-                parser.add_argument("--keys", type=str, nargs="*", default=[], help="helpmessage")
-                parser.add_argument("--table", action="store_true", dest="show_table_style", help="helpmessage")
-                parser.add_argument("-v", "--verbose", action="count", default=0, help="increase output verbosity")
+	def _retrieve_args():
+		parser = argparse.ArgumentParser(description="${1:description}")
+		parser.add_argument("--input", "-i", type=Path, required=True, help="helpmessage")
+		parser.add_argument("--keys", type=str, nargs="*", default=[], help="helpmessage")
+		parser.add_argument("--table", action="store_true", dest="show_table_style", help="helpmessage")
+		parser.add_argument("-v", "--verbose", action="count", default=0, help="increase output verbosity")
 
-                args = parser.parse_args()
+		args = parser.parse_args()
 
-                if not args.input.is_file():
-                        raise FileNotFoundError(f"File not Found: {args.input}")
+		if not args.input.is_file():
+			raise FileNotFoundError(f"File not Found: {args.input}")
 
-                if args.xxx:
-                        parser.print_help()
-                        raise RuntimeError("xxx is required")
+		if args.xxx:
+			parser.print_help()
+			raise RuntimeError("xxx is required")
 
-                return args
-        def _retrieve_logging(level: int) -> logging.Logger:
-                handler = logging.StreamHandler()
-                logger = logging.getLogger(__name__)
-                logger.addHandler(handler)
-                if level == 0:
-                        error_stage = logging.WARNING
-                elif level == 1:
-                        error_stage = logging.INFO
-                elif level > 1:
-                        error_stage = logging.DEBUG
-                logger.setLevel(error_stage)
-                return logger
+		return args
+	def _retrieve_logging(level: int) -> logging.Logger:
+			handler = logging.StreamHandler()
+			logger = logging.getLogger(__name__)
+			logger.addHandler(handler)
+			if level == 0:
+					error_stage = logging.WARNING
+			elif level == 1:
+					error_stage = logging.INFO
+			elif level > 1:
+					error_stage = logging.DEBUG
+			logger.setLevel(error_stage)
+			return logger
+	
+	def main(aaa, v: int): -> None:
+			logger = _retrieve_logging(v)
+			logger.info("program start")
 
-        def main(aaa, v: int): -> None:
-                logger = _retrieve_logging(v)
-                logger.info("program start")
-
-        if __name__ == "__main__":
-                main(**vars(_retrieve_args()))
+	if __name__ == "__main__":
+				main(**vars(_retrieve_args()))
 
 
 snippet argparse
-        def _retrieve_args():
-                parser = argparse.ArgumentParser(description="${1:description}")
-                parser.add_argument("--input", "-i", type=Path, required=True, help="helpmessage")
-                parser.add_argument("--keys", type=str, nargs="*", default=[], help="helpmessage")
-                parser.add_argument("--table", action="store_true", dest="show_table_style", help="helpmessage")
-                parser.add_argument("-v", "--verbose", action="count", default=0, help="increase output verbosity")
+	def _retrieve_args():
+				parser = argparse.ArgumentParser(description="${1:description}")
+				parser.add_argument("--input", "-i", type=Path, required=True, help="helpmessage")
+				parser.add_argument("--keys", type=str, nargs="*", default=[], help="helpmessage")
+				parser.add_argument("--table", action="store_true", dest="show_table_style", help="helpmessage")
+				parser.add_argument("-v", "--verbose", action="count", default=0, help="increase output verbosity")
 
-                args = parser.parse_args()
+				args = parser.parse_args()
 
-                if not args.input.is_file():
-                        raise FileNotFoundError(f"File not Found: {args.input}")
+				if not args.input.is_file():
+						raise FileNotFoundError(f"File not Found: {args.input}")
 
-                if args.xxx:
-                        parser.print_help()
-                        raise RuntimeError("xxx is required")
+				if args.xxx:
+						parser.print_help()
+						raise RuntimeError("xxx is required")
 
-                return args
+				return args
 
 snippet logging
-        def _retrieve_logging(level: int) -> logging.Logger:
-                handler = logging.StreamHandler()
-                logger = logging.getLogger(__name__)
-                logger.addHandler(handler)
-                if level == 0:
-                        error_stage = logging.WARNING
-                elif level == 1:
-                        error_stage = logging.INFO
-                elif level > 1:
-                        error_stage = logging.DEBUG
-                logger.setLevel(error_stage)
-                return logger
+		def _retrieve_logging(level: int) -> logging.Logger:
+				handler = logging.StreamHandler()
+				logger = logging.getLogger(__name__)
+				logger.addHandler(handler)
+				if level == 0:
+						error_stage = logging.WARNING
+				elif level == 1:
+						error_stage = logging.INFO
+				elif level > 1:
+						error_stage = logging.DEBUG
+				logger.setLevel(error_stage)
+				return logger
 
 snippet main
-        main(**vars(_retrieve_args()))
+		main(**vars(_retrieve_args()))
 
 snippet imshow
-        call cv2.imshow(${2:window name}, ${1:np.array})
-        cv2.waitKey()
-        cv2.imwrite(${1:file name}, ${2:np.array})
-        cv2.destroyAllWindows()
+		call cv2.imshow(${2:window name}, ${1:np.array})
+		cv2.waitKey()
+		cv2.imwrite(${1:file name}, ${2:np.array})
+		cv2.destroyAllWindows()
 
 snippet unittest
-        import unittest
+		import unittest
 
-        import numpy as np
-        import torch
+		import numpy as np
+		import torch
 
-        class Test{ClassOrMethod}(unittest.TestCase):
-                def test_{function}(self):
-                        self.assertEquals({ref}, {result})
-                        self.assertAlmostEquals({ref}, {result})
-                        np.testing.assert_array_almost_equal({ref}, {result})
+		class Test{ClassOrMethod}(unittest.TestCase):
+				def test_{function}(self):
+						self.assertEquals({ref}, {result})
+						self.assertAlmostEquals({ref}, {result})
+						np.testing.assert_array_almost_equal({ref}, {result})
 
-        if __name__ == "__main__":
-                unittest.main()
+		if __name__ == "__main__":
+				unittest.main()
