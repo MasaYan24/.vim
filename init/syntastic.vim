@@ -7,3 +7,4 @@ let g:syntastic_python_flake8_post_args = "--max-line-length=79"
 let g:syntastic_python_black_post_args = "--max-line-length=79"
 let g:syntastic_python_mypy_post_args = "--ignore-missing-imports"
 let g:syntastic_pyhton_checkers = ['black', 'mypy', 'flake8', 'autopep8']
+let g:syntastic_python_flake8_args = '--ignore="I100,I201"'
