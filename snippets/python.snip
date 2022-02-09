@@ -26,79 +26,114 @@ snippet init
 
 		return args
 	def _retrieve_logging(level: int) -> logging.Logger:
-			handler = logging.StreamHandler()
-			logger = logging.getLogger(__name__)
-			logger.addHandler(handler)
-			if level == 0:
-					error_stage = logging.WARNING
-			elif level == 1:
-					error_stage = logging.INFO
-			elif level > 1:
-					error_stage = logging.DEBUG
-			logger.setLevel(error_stage)
-			return logger
+		handler = logging.StreamHandler()
+		logger = logging.getLogger(__name__)
+		logger.addHandler(handler)
+		if level == 0:
+			error_stage = logging.WARNING
+		elif level == 1:
+			error_stage = logging.INFO
+		elif level > 1:
+			error_stage = logging.DEBUG
+		logger.setLevel(error_stage)
+		return logger
 	
 	def main(aaa, v: int): -> None:
-			logger = _retrieve_logging(v)
-			logger.info("program start")
+		logger = _retrieve_logging(v)
+		logger.info("program start")
 
 	if __name__ == "__main__":
-				main(**vars(_retrieve_args()))
+		main(**vars(_retrieve_args()))
 
 
-snippet argparse
+snippet retrieve_args
 	def _retrieve_args():
-				parser = argparse.ArgumentParser(description="${1:description}")
-				parser.add_argument("--input", "-i", type=Path, required=True, help="helpmessage")
-				parser.add_argument("--keys", type=str, nargs="*", default=[], help="helpmessage")
-				parser.add_argument("--table", action="store_true", dest="show_table_style", help="helpmessage")
-				parser.add_argument("-v", "--verbose", action="count", default=0, help="increase output verbosity")
+		parser = argparse.ArgumentParser(description="${1:description}")
+		parser.add_argument("--input", "-i", type=Path, required=True, help="helpmessage")
+		parser.add_argument("--keys", type=str, nargs="*", default=[], help="helpmessage")
+		parser.add_argument("--table", action="store_true", dest="show_table_style", help="helpmessage")
+		parser.add_argument("--verbose", "-v", action="count", default=1, help="increase output verbosity")
+		parser.add_argument("--quiet", "-q", action="count", default=0, help="decrease output verbosity")
 
-				args = parser.parse_args()
+		args = parser.parse_args()
 
-				if not args.input.is_file():
-						raise FileNotFoundError(f"File not Found: {args.input}")
+		if not args.input.is_file():
+			raise FileNotFoundError(f"File not Found: {args.input}")
 
-				if args.xxx:
-						parser.print_help()
-						raise RuntimeError("xxx is required")
+		if args.xxx:
+			parser.print_help()
+			raise RuntimeError("xxx is required")
 
-				return args
+		args.verbose -= args.quiet
+		del args.quiet
 
-snippet logging
-		def _retrieve_logging(level: int) -> logging.Logger:
-				handler = logging.StreamHandler()
-				logger = logging.getLogger(__name__)
-				logger.addHandler(handler)
-				if level == 0:
-						error_stage = logging.WARNING
-				elif level == 1:
-						error_stage = logging.INFO
-				elif level > 1:
-						error_stage = logging.DEBUG
-				logger.setLevel(error_stage)
-				return logger
+		return args
+
+snippet retrieve_logging
+	import logging import log_module
+	def _retrieve_logging(verbosity: int) -> int:
+		if verbosity < -1:
+			return log_module.CRITICAL
+		if verbosity == -1:
+			return log_module.ERROR
+		if verbosity == 0:
+			return log_module.WARNING
+		if verbosity == 1:
+			return log_module.INFO
+		if verbosity == 2:
+			return log_module.DEBUG
+		return log_module.NOTEST
+
+snippet set_log_level
+	import logging import log_module
+	def set_log_level(loggers: List[str], level: int = log_module.WARNING) -> None:
+		"""まとめてログ出力レベルを変更/指定する。"""
+		for lgr in loggers:
+			getLogger(lgr).setLevel(level=level)
+
+snippet chkargs
+	from inspect import currentframe
+	def chkargs(*args) -> Optional[str]:
+		frametype = currentframe()
+		if frametype is None:
+			return None
+		frametype_f_back = frametype.f_back
+		if frametype_f_back is None:
+			return None
+		variables = frametype_f_back.f_locals
+		names = {id(v): k for k, v in variables.items()}
+		return ",".join(
+			names.get(id(args), "???") + " = " + repr(arg) for arg in args
+		)
+
 
 snippet main
+	import logging as log_module
+	from logging import getLogger
+	def main(verbose: int) -> None:
+		log_module.basicConfig(level=retrieve_logging(verbose))
+		logger = getLogger(__name__)
+
+	if __name__ == "__main__":
 		main(**vars(_retrieve_args()))
 
 snippet imshow
-		call cv2.imshow(${2:window name}, ${1:np.array})
-		cv2.waitKey()
-		cv2.imwrite(${1:file name}, ${2:np.array})
-		cv2.destroyAllWindows()
+	call cv2.imshow(${2:window name}, ${1:np.array})
+	cv2.waitKey()
+	cv2.imwrite(${1:file name}, ${2:np.array})
+	cv2.destroyAllWindows()
 
 snippet unittest
-		import unittest
+	import unittest
 
-		import numpy as np
-		import torch
+	import numpy as np
+	import torch
 
-		class Test{ClassOrMethod}(unittest.TestCase):
-				def test_{function}(self):
-						self.assertEquals({ref}, {result})
-						self.assertAlmostEquals({ref}, {result})
-						np.testing.assert_array_almost_equal({ref}, {result})
+	class Test{ClassOrMethod}(unittest.TestCase):
+		def test_{function}(self):
+			self.assertEquals({ref}, {result})
+			self.assertAlmostEquals({ref}, {result})
+			np.testing.assert_array_almost_equal({ref}, {result})
 
-		if __name__ == "__main__":
-				unittest.main()
+	if __name__ == "__main__":
+		unittest.main()
