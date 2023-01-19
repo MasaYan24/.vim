@@ -25,6 +25,7 @@ let g:deoplete#enable_at_startup = 1
 let g:neocomplete#enable_at_startup = 1
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Vimjas/vim-python-pep8-indent')
 
 " Required:
 call dein#end()
