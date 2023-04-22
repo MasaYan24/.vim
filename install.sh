@@ -1,7 +1,5 @@
 #!/bin/sh
 
-sudo apt install -y neovim
-
 wget https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh -O dein_installer.sh
 sh dein_installer.sh --use-neovim-config $HOME/.local/share/dein
 
