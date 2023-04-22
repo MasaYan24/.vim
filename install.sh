@@ -1,6 +1,6 @@
 #!/bin/sh
 
-installer=$(mktemp).sh
+installer=$(mktemp -d)/install_dein.sh
 wget https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh -O $installer
 sh $installer --use-neovim-config $HOME/.local/share/dein
 
