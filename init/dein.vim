@@ -1,28 +1,20 @@
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
+set nocompatible
+
+let s:dein_base = "$HOME/.local/share/dein"
+
+let s:dein_src = "$HOME/.local/share/dein/repos/github.com/Shougo/dein.vim"
+
+execute 'set runtimepath+=' . s:dein_src
 
 " Required:
-set runtimepath+=$HOME/.vim/bundles/dein/repos/github.com/Shougo/dein.vim
+call dein#begin(s:dein_base)
 
-" Required:
-call dein#begin("$HOME/.vim/bundles/dein")
-
-" Let dein manage dein
-" Required:
-call dein#add('$HOME/.vim/bundles/dein/repos/github.com/Shougo/dein.vim')
+call dein#add(s:dein_src)
 
 " Add or remove your plugins here like this:
 call dein#add('scrooloose/syntastic')
 call dein#add('Shougo/neocomplcache')
 call dein#add('Shougo/deoplete.nvim')
-if !has('nvim')
-  call dein#add('roxma/nvim-yarp')
-  call dein#add('roxma/ivm-hug-neovim-rpc')
-endif
-let g:deoplete#enable_at_startup = 1
-let g:neocomplete#enable_at_startup = 1
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Vimjas/vim-python-pep8-indent')
@@ -38,5 +30,3 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
-
-"End dein Scripts-------------------------

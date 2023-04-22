@@ -1,11 +1,10 @@
 #!/bin/sh
 
-mkdir -p $HOME/.config/nvim
-ln -s $HOME/.vim/vimrc.vim $HOME/.config/nvim/init.vim
-
 sudo apt install -y neovim
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh)" \
-  -- $HOME/.vim/bundles/dein
+wget https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh -O dein_installer.sh
+sh dein_installer.sh --use-neovim-config $HOME/.local/share/dein
+
+ln -sf $HOME/.vim/vimrc.vim $HOME/.config/nvim/init.vim
 
 pip install autopep8 black flake8 isort mypy pynvim
