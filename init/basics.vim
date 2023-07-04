@@ -8,6 +8,7 @@ set cursorline  " hilight curosr line
 hi cursorline cterm=None ctermbg=255
 
 set list listchars=tab:»-,nbsp:%
+edit ++ff=unix
 
 if has("syntax")
   syntax on
